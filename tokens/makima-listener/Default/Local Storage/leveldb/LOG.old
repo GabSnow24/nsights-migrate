@@ -1,0 +1,9 @@
+2023/06/22-23:32:11.372 6b03 Reusing MANIFEST /Users/gabriel-santos/code/makima-listener/tokens/makima-listener/Default/Local Storage/leveldb/MANIFEST-000001
+2023/06/22-23:32:11.373 6b03 Recovering log #3
+2023/06/22-23:32:11.373 6b03 (ignoring error) /Users/gabriel-santos/code/makima-listener/tokens/makima-listener/Default/Local Storage/leveldb/000003.log: dropping 4410 bytes; Corruption: checksum mismatch
+2023/06/22-23:32:11.373 6b03 (ignoring error) /Users/gabriel-santos/code/makima-listener/tokens/makima-listener/Default/Local Storage/leveldb/000003.log: dropping 601 bytes; Corruption: missing start of fragmented record(2)
+2023/06/22-23:32:11.373 6b03 (ignoring error) /Users/gabriel-santos/code/makima-listener/tokens/makima-listener/Default/Local Storage/leveldb/000003.log: dropping 31605 bytes; Corruption: checksum mismatch
+2023/06/22-23:32:11.373 6b03 (ignoring error) /Users/gabriel-santos/code/makima-listener/tokens/makima-listener/Default/Local Storage/leveldb/000003.log: dropping 2063 bytes; Corruption: missing start of fragmented record(2)
+2023/06/22-23:32:11.373 6b03 Level-0 table #3: started
+2023/06/22-23:32:11.378 6b03 Level-0 table #3: 20776 bytes OK
+2023/06/22-23:32:11.385 6b03 Delete type=0 #3
