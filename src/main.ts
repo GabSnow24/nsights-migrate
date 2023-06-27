@@ -13,17 +13,17 @@ async function bootstrap() {
     {
       transport: Transport.RMQ,
       options: {
-        urls: ["amqp://localhost:5672"],
+        urls: [process.env.RABBIT_URL],
         queue: 'engine_queue',
-        noAck: false,
         queueOptions: {
-          durable: false
+          durable: false,
         },
+        noAck: false
       },
     }
   );
   await app.listen();
-  loggerInstance.log(`Makima Sender MS running!`)
+  loggerInstance.log(`Makima Listener MS running!`)
 }
 
 bootstrap().catch((error) => loggerInstance.error(error))

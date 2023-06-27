@@ -1,6 +1,5 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { ClientProxy, EventPattern, MessagePattern } from '@nestjs/microservices';
-import { lastValueFrom } from 'rxjs';
+import { ClientProxy } from '@nestjs/microservices';
 import { create, Whatsapp } from 'venom-bot'
 
 
@@ -12,25 +11,15 @@ const premiumGroups = [
 ]
 
 
-export interface IMenu {
-  parentMenu: number | null
-  options: IOptions[]
-}
-
-interface IOptions {
-  message: string,
-  value: string
-}
-
-
 @Injectable()
 export class ClientService {
   constructor(@Inject('MAKIMA') private client: ClientProxy) {
-    // this.init()
+    this.init()
+    this.client.connect()
   }
   async init() {
     create(
-      'makima-sender',
+      'makima-listener',
       () => { },
       () => { },
       {
@@ -52,33 +41,32 @@ export class ClientService {
   async start(client: Whatsapp) {
     client.onMessage(async (message) => {
       const isGroup = message.isGroupMsg
-      const isForMakima = message.mentionedJidList.includes("557388015449@c.us")
+      const isForMakima = message.mentionedJidList.includes(`${process.env.BOT_NUMBER}@c.us`)
+      const isAudio = message.mimetype?.includes("audio")
       const isPremium = premiumGroups.includes(message.chatId)
       let shouldSendMessage: boolean = false
-      console.log({ isForMakima, isGroup, isPremium })
       if (isGroup && isForMakima && isPremium) {
-        shouldSendMessage = true
-      }
-      if (shouldSendMessage) {
-        await this.getHello()
-        console.log('enviou')
+        const msgToSend = {
+          mentionedJidList: message.mentionedJidList,
+          author: message.author,
+          body: message.body,
+          chatId: message.chatId,
+          isAudio
+        }
+
+        try {
+          this.client.emit('engine', JSON.stringify({ data: { message: msgToSend } }));
+          this.client.emit('engine', JSON.stringify({ data: { message: msgToSend } }));
+          Logger.log("Message sent to engine!")
+        } catch (error) {
+          Logger.error(error)
+        }
       }
     });
   }
 
-  async getHello() {
-    try {
-      const send = await lastValueFrom(this.client.send({ cmd: 'greeting' }, 'Progressive Coder'));
-      console.log(send)
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
-  @MessagePattern({ cmd: 'greeting' })
-  getGreetingMessage(name: string): string {
-    return `Hello ${name}`;
-  }
+
 }
 
 
