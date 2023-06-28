@@ -21,6 +21,19 @@ import { ConfigModule } from '@nestjs/config';
         }
       },
     ]),
+    ClientsModule.register([
+      {
+        name: 'MAKIMA-TRANSCRIBE',
+        transport: Transport.RMQ,
+        options: {
+          urls: [process.env.RABBIT_URL],
+          queue: 'sender_queue',
+          queueOptions: {
+            durable: false,
+          },
+        }
+      },
+    ]),
 
   ],
   providers: [ClientService]

@@ -44,29 +44,24 @@ export class ClientService {
       const isForMakima = message.mentionedJidList.includes(`${process.env.BOT_NUMBER}@c.us`)
       const isAudio = message.mimetype?.includes("audio")
       const isPremium = premiumGroups.includes(message.chatId)
-      let shouldSendMessage: boolean = false
-      if (isGroup && isForMakima && isPremium) {
-        const msgToSend = {
-          mentionedJidList: message.mentionedJidList,
-          author: message.author,
-          body: message.body,
-          chatId: message.chatId,
-          isAudio
-        }
-
-        try {
-          this.client.emit('engine', JSON.stringify({ data: { message: msgToSend } }));
-          this.client.emit('engine', JSON.stringify({ data: { message: msgToSend } }));
-          Logger.log("Message sent to engine!")
-        } catch (error) {
-          Logger.error(error)
-        }
+      let dataToSend: { pattern: string, data: any }
+      console.log({ isGroup, isPremium, isForMakima })
+      if (isGroup && isPremium && isForMakima) {
+        this.sendEvent("engine", JSON.stringify({ data: { message } }))
       }
     });
   }
 
 
-
+  sendEvent(pattern: string, data: any) {
+    try {
+      this.client.emit(pattern, data);
+      this.client.emit(pattern, data);
+      Logger.log("Message sent to engine!")
+    } catch (error) {
+      Logger.error(error)
+    }
+  }
 }
 
 
