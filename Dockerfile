@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --ignore-scripts @nestjs/cli 
+RUN npm install --ignore-scripts -g @nestjs/cli 
 
 
 ARG NODE_ENV=production
