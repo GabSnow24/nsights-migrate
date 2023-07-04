@@ -13,6 +13,8 @@ RUN yarn install --production
 
 COPY . .
 
+RUN npm i -D @swc/cli @swc/core
+
 RUN yarn build
 
 FROM node:16
