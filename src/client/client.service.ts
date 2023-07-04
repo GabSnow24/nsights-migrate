@@ -26,7 +26,6 @@ export class ClientService {
       () => { },
       {
         folderNameToken: 'tokens',
-        headless: true,
         puppeteerOptions: {
           ignoreDefaultArgs: ['--disable-extensions']
         },
