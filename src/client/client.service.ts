@@ -34,20 +34,18 @@ export class ClientService {
         this.start(client)
       })
       .catch((error) => {
-        console.log(error);
+        Logger.error(error);
       });
   }
 
   async start(client: Whatsapp) {
-    client.onMessage(async (message) => {
+    client.onMessage((message) => {
       const isGroup = message.isGroupMsg
       const isForMakima = message.mentionedJidList.includes(`${process.env.BOT_NUMBER}@c.us`)
-      const isAudio = message.mimetype?.includes("audio")
       const isPremium = premiumGroups.includes(message.chatId)
-      let dataToSend: { pattern: string, data: any }
-      console.log({ isGroup, isPremium, isForMakima })
       if (isGroup && isPremium && isForMakima) {
         this.sendEvent("engine", JSON.stringify({ data: { message } }))
+        Logger.log(`Event sent to engine queue with data: ${message}`)
       }
     });
   }
@@ -57,7 +55,6 @@ export class ClientService {
     try {
       this.client.emit(pattern, data);
       this.client.emit(pattern, data);
-      Logger.log("Message sent to engine!")
     } catch (error) {
       Logger.error(error)
     }

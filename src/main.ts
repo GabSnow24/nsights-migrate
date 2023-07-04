@@ -7,7 +7,7 @@ import { otelSDK } from './tracing';
 const loggerInstance = new Logger('Bootstrap')
 
 async function bootstrap() {
-  await otelSDK.start()
+  otelSDK.start()
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
