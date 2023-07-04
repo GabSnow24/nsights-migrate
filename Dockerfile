@@ -9,8 +9,8 @@ RUN npm install --ignore-scripts -g @nestjs/cli
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
-RUN yarn install 
-
+RUN yarn install --production
+RUN yarn add -D npm i -D @swc/cli @swc/core
 COPY . .
 
 RUN yarn build
