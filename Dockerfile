@@ -10,7 +10,7 @@ ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
 RUN yarn install --production
-RUN yarn add -D npm i -D @swc/cli @swc/core
+
 COPY . .
 
 RUN yarn build

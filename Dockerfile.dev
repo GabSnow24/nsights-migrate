@@ -6,7 +6,6 @@ COPY package*.json ./
 
 RUN npm install --ignore-scripts -g @nestjs/cli 
 
-
 RUN yarn install
 
 COPY . .

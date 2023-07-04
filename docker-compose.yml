@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  makima-sender:
+    image: qzzdocker24/makima-sender:latest
+    container_name: makima-sender
+    environment:
+      - RABBIT_URL=amqp://guest:guest@127.0.0.1:5672
+      - BOT_NUMBER=557388015449
