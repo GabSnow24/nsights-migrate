@@ -2,6 +2,12 @@
 /dist
 /node_modules
 
+#Auth
+/tokens
+
+#Env
+.env
+
 # Logs
 logs
 *.log

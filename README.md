@@ -1,3 +1,14 @@
+## Dependencies & Services
+- RabbitMQ - https://www.rabbitmq.com
+- NestJs - https://nestjs.com
+
+
+
+
+## Get started Notes:
+- Configure `.env` file while working on local environment  
+- Health endpoint: `host:port/api/health`
+- Swagger docs endpoint: `host:port/api/docs`
 
 
 ## Installation
@@ -5,18 +16,38 @@
 ```bash
 $ yarn install
 ```
+## Run in local
 
-## Running the app
-
+start core services first (rabbitmq)
 ```bash
-# development
-$ yarn run start
+$ yarn infra:up
+```
 
-# watch mode
-$ yarn run start:dev
+Now, first place `.env` file in service folder
+```bash
+$ yarn start:dev
+```
 
-# production mode
-$ yarn run start:prod
+to stop core services, run
+```bash
+$ yarn infra:down
+```
+
+## Run in local with docker-compose
+
+start core services
+```bash
+$ yarn infra:up
+```
+
+docker-compose command - this will take env variables from .env.local 
+```bash
+docker-compose up "service name" 
+```
+
+rebuild
+```bash
+docker-compose up "service name" --build
 ```
 
 ## Test
