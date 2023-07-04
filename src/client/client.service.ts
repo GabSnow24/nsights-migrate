@@ -7,7 +7,8 @@ const premiumGroups = [
   "5511986116209-1629056430@g.us",
   "557388666787-1590188337@g.us",
   "557388015449-1579919536@g.us",
-  "557388015449-1632007808@g.us"
+  "557388015449-1632007808@g.us",
+  "120363144462631568@g.us"
 ]
 
 
@@ -44,6 +45,7 @@ export class ClientService {
       const isGroup = message.isGroupMsg
       const isForMakima = message.mentionedJidList.includes(`${process.env.BOT_NUMBER}@c.us`)
       const isPremium = premiumGroups.includes(message.chatId)
+      Logger.log(`Message received from: ${message}`)
       if (isGroup && isPremium && isForMakima) {
         this.sendEvent("engine", JSON.stringify({ data: { message } }))
         Logger.log(`Event sent to engine queue with data: ${message}`)
