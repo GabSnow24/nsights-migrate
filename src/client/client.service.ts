@@ -45,10 +45,10 @@ export class ClientService {
       const isGroup = message.isGroupMsg
       const isForMakima = message.mentionedJidList.includes(`${process.env.BOT_NUMBER}@c.us`)
       const isPremium = premiumGroups.includes(message.chatId)
-      Logger.log(`Message received from: ${message}`)
+      Logger.log(`Message received from: ${message.chatId}`)
       if (isGroup && isPremium && isForMakima) {
         this.sendEvent("engine", JSON.stringify({ data: { message } }))
-        Logger.log(`Event sent to engine queue with data: ${message}`)
+        Logger.log(`Event sent to engine queue with data: ${JSON.stringify(message)}`)
       }
     });
   }
