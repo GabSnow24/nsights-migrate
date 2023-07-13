@@ -1,0 +1,28 @@
+version: "3.9"
+networks:
+  redis:
+  redis-gui:
+services:
+  redis:
+    image: redis:6.0
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - redis
+    volumes:
+      - redis:/data
+  redis-commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: ghcr.io/joeferner/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=host.docker.internal:redis:6379
+    ports:
+      - "8081:8081"
+    networks:
+      - redis
+      - redis-gui
+volumes:
+  redis:
+    driver: local

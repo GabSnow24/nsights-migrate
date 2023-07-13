@@ -1,5 +1,7 @@
+import { InjectQueue } from '@nestjs/bull';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { Queue } from 'bull';
 import { create, Whatsapp } from 'venom-bot'
 
 
@@ -14,9 +16,8 @@ const premiumGroups = [
 
 @Injectable()
 export class ClientService {
-  constructor(@Inject('MAKIMA') private client: ClientProxy) {
+  constructor(@InjectQueue('engine') private queue: Queue) {
     this.init()
-    this.client.connect()
   }
   async init() {
     create(
@@ -47,17 +48,20 @@ export class ClientService {
       const isPremium = premiumGroups.includes(message.chatId)
       Logger.log(`Message received from: ${message.chatId}`)
       if (isGroup && isPremium && isForMakima) {
-        this.sendEvent("engine", JSON.stringify({ data: { message } }))
+        this.sendEvent("predict", JSON.stringify({ data: { message } }))
         Logger.log(`Event sent to engine queue with data: ${JSON.stringify(message)}`)
       }
     });
   }
 
 
-  sendEvent(pattern: string, data: any) {
+  async sendEvent(pattern: string, data: any) {
     try {
-      this.client.emit(pattern, data);
-      this.client.emit(pattern, data);
+      await this.queue.add(pattern, data,
+        {
+          attempts: 5,
+          backoff: 8000,
+        })
     } catch (error) {
       Logger.error(error)
     }

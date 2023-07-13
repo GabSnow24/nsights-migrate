@@ -15,6 +15,14 @@ makima-ms:
   nameOverride: ""
   fullnameOverride: "makima-listener"
 
+  local_volume:
+    path: /tokens
+    resources:
+      requests:
+        storage: 1Gi
+      limits:
+        storage: 1Gi
+
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -48,7 +56,7 @@ makima-ms:
   service:
     type: ClusterIP
     port: 80
-    targetPort: 80
+    targetPort: 8080
 
   # livenessProbe:
   #   httpGet:
@@ -99,8 +107,14 @@ makima-ms:
 
   variables:
     secret:
-      - name: RABBIT_URL
-        value: YW1xcDovL2d1ZXN0Omd1ZXN0QHJhYmJpdG1xLnJhYmJpdHMuc3ZjLmNsdXN0ZXIubG9jYWw6NTY3Mg==
+      - name: REDIS_PASSWORD
+        value: MTMwODAwQWQ=
+      - name: REDIS_HOST
+        value: cmVkaXMucmVkaXMuc3ZjLmNsdXN0ZXIubG9jYWw=
     env:
       - name: BOT_NUMBER
         value: "557388015449"
+      - name: API_PORT
+        value: "8080"
+      - name: REDIS_PORT
+        value: "6379"
