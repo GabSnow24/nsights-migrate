@@ -110,7 +110,7 @@ makima-ms:
       - name: REDIS_PASSWORD
         value: MTMwODAwQWQ=
       - name: REDIS_HOST
-        value: cmVkaXMucmVkaXMuc3ZjLmNsdXN0ZXIubG9jYWw=
+        value: cmVkaXMtMC5yZWRpcy5yZWRpcy5zdmMuY2x1c3Rlci5sb2NhbA==
     env:
       - name: BOT_NUMBER
         value: "557388015449"
