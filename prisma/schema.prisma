@@ -1,0 +1,171 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String  @id @default(uuid())
+  cellphone String
+  username  String  @unique
+  email     String  @unique
+  password  String
+  admin     Boolean
+}
+
+model ViewFundingRounds {
+  id String @id @default(uuid())
+  y  Int
+  x  String
+}
+
+model ViewCountry {
+  id String @id @default(uuid())
+  y  Int
+  x  String
+}
+
+model ViewNumberEmployees {
+  id String @id @default(uuid())
+  y  Int
+  x  String
+}
+
+model ViewIndustry {
+  id String @id @default(uuid())
+  y  Int
+  x  String
+}
+
+model ViewIndustryGroups {
+  id String @id @default(uuid())
+  y  Int
+  x  String
+}
+
+model ViewRegion {
+  id String @id @default(uuid())
+  y  Int
+  x  String
+}
+
+model ViewFoundedDate {
+  id String @id @default(uuid())
+  y  Int
+  x  String
+}
+
+model ViewLastMonth {
+  id    String @id @default(uuid())
+  count Int
+  date  String
+}
+
+model Enterprise {
+  id                              String   @id @default(uuid())
+  orgName                         String   @default("")
+  imageUrl                        String   @default("")
+  contactJobDep                   String   @default("")
+  industries                      String[] @default([])
+  hqLocation                      String   @default("")
+  country                         String   @default("")
+  description                     String   @default("")
+  foundedDate                     DateTime @default(now())
+  foundedDatePrecision            String   @default("")
+  founders                        String[] @default([])
+  employeesRange                  String   @default("")
+  fundingStatus                   String   @default("")
+  lastFundingDate                 DateTime @default(now())
+  lastFundingType                 String   @default("")
+  numberOfInvestiments            Int      @default(0)
+  numberOfExits                   Int      @default(0)
+  industryGroups                  String[] @default([])
+  ipoStatus                       String   @default("")
+  ipoDate                         DateTime @default(now())
+  delistedDate                    DateTime @default(now())
+  delisteDatePrecision            String   @default("")
+  moneyRaisedAtIpo                Float    @default(0.0)
+  moneyRaisedAtIpoCurrency        String   @default("")
+  moneyRaisedAtIpoCurrencyInUsd   Float    @default(0.0)
+  valuationAtIpo                  Float    @default(0.0)
+  valuationAtIpoCurrency          String   @default("")
+  valuationAtIpoCurrencyInUsd     Float    @default(0.0)
+  stockExchange                   String   @default("")
+  diversitySpotlight              String   @default("")
+  numberDiversityInvestments      String   @default("")
+  transactionName                 String   @default("")
+  acquiredBy                      String   @default("")
+  announcedDate                   DateTime @default(now())
+  announcedDatePrecision          String   @default("")
+  price                           Float    @default(0.0)
+  priceCurrency                   String   @default("")
+  priceCurrencyInUsd              Float    @default(0.0)
+  lastLeadershipHiringDate        DateTime @default(now())
+  cbRankPerOrganization           Int      @default(0)
+  cbRankPerCompany                Int      @default(0)
+  cbRankPerSchool                 Int      @default(0)
+  lastLayoffDate                  DateTime @default(now())
+  headquartersRegions             String   @default("")
+  estimatedRevenueRange           String   @default("")
+  operatingStatus                 String   @default("")
+  website                         String   @default("")
+  twitter                         String   @default("")
+  facebook                        String   @default("")
+  linkedin                        String   @default("")
+  contactEmail                    String   @default("")
+  phone                           String   @default("")
+  numberOfArticles                Int      @default(0)
+  hubTags                         String   @default("")
+  fullDescription                 String   @default("")
+  activelyHiring                  String   @default("")
+  investmentStage                 String   @default("")
+  numberOfFoundersAlumni          String   @default("")
+  numberOfFounders                String   @default("")
+  numberOfFundingRounds           String   @default("")
+  totalFundingAmount              Float    @default(0.0)
+  totalFundingAmountCurrency      String   @default("")
+  totalFundingAmountCurrencyInUsd Float    @default(0.0)
+  numberOfAcquisitions            Int      @default(0)
+  stockSymbol                     String   @default("")
+  similarCompanies                Int      @default(0)
+  monthlyVisits                   Int      @default(0)
+  averageVisits                   Float    @default(0.0)
+  visitDuration                   Int      @default(0)
+  monthlyVisitsGrowth             Float    @default(0.0)
+  visitDurationGrowth             Float    @default(0.0)
+  pageViews                       Float    @default(0.0)
+  pageViewsGrowth                 Float    @default(0.0)
+  bounceRate                      Float    @default(0.0)
+  bounceRateGrowth                Float    @default(0.0)
+  globalTrafficRank               Int      @default(0)
+  monthlyRankChange               Int      @default(0)
+  monthlyRankGrowth               Float    @default(0.0)
+  itSpend                         Float    @default(0.0)
+  itSpendCurrency                 String   @default("")
+  itSpendInUsd                    Float    @default(0.0)
+  patentsGranted                  Int      @default(0)
+  trademarksRegistered            Int      @default(0)
+  mostPopularPatentClass          String   @default("")
+  mostPopularTrademarkClass       String   @default("")
+  numberOfApps                    Int      @default(0)
+  downloadLastThirtyDays          Int      @default(0)
+  industryLinkedin                String   @default("")
+  companyStreet                   String   @default("")
+  companyCity                     String   @default("")
+  companyState                    String   @default("")
+  companyCountry                  String   @default("")
+  companyPostalCode               String   @default("")
+  companyAddress                  String   @default("")
+  keywords                        String[] @default([])
+  companyPhone                    String   @default("")
+  seoDescription                  String   @default("")
+  technologies                    String[] @default([])
+  sicCodes                        String   @default("")
+  shortDescription                String   @default("")
+}

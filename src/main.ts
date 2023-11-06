@@ -30,7 +30,7 @@ async function bootstrap() {
   app.use(swStats.getMiddleware({ swaggerSpec: document }));
 
   await app.listen(process.env.API_PORT || DEFAULT_API_PORT);
-  loggerInstance.log(`Makime Listener MS is running! Application is running on: ${await app.getUrl()}`)
+  loggerInstance.log(`Nsights Migrate Data is running! Application is running on: ${await app.getUrl()}`)
 }
 
 bootstrap().catch((error) => loggerInstance.error(error))
